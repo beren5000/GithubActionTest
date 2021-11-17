@@ -1,0 +1,17 @@
+name: DjangoTests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+#  build:
+#    runs-on: ubuntu-18.04
+#    strategy:
+#      matrix:
+#        python-version: [3.8.12]
+  run-tests:
+    runs-on: ubuntu-18.04
+    steps:
+      - run: echo "Runing Tests"
