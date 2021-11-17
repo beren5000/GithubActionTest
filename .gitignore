@@ -51,29 +51,8 @@ venv/
 
 # others #
 *.pid
-celerybeat-schedule
-
-#**/**/migrations/**
-#!**/**/migrations
-#!**/**/migrations/__init__.py
-
 theVoid/
 /theVoid/*
 /htmlcov/**
-.coverage
+.gittoken
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
-goog-stt/
