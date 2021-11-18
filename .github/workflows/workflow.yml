@@ -13,13 +13,15 @@ jobs:
     runs-on: ubuntu-18.04
     services:
       postgres:
-        image: postgres
+        image: postgres:11.8
         env:
           POSTGRES_USER: test_actions
           POSTGRES_PASSWORD: TestActions123
           POSTGRES_DB: test_actions
           POSTGRES_PORT: 5432
-          DATABASE: postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
@@ -38,6 +40,5 @@ jobs:
           POSTGRES_PASSWORD: TestActions123
           POSTGRES_DB: test_actions
           POSTGRES_PORT: 5432
-          DATABASE: postgres
         run: |
           python3 manage.py test # Don't forget to run tests
