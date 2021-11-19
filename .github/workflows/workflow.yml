@@ -2,8 +2,6 @@ name: Django Workflow
 
 on:
   pull_request:
-    branches:
-      - master
   push:
     branches:
       - master
@@ -11,6 +9,17 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-18.04
+    services:
+      postgres:
+        image: postgres:11.8
+        env:
+          POSTGRES_USER: test_actions
+          POSTGRES_PASSWORD: TestActions123
+          POSTGRES_DB: test_actions
+          POSTGRES_PORT: 5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
@@ -23,5 +32,11 @@ jobs:
           pwd
           pip install -r requirements.txt
       - name: Django Testing project
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: test_actions
+          POSTGRES_PASSWORD: TestActions123
+          POSTGRES_DB: test_actions
+          POSTGRES_PORT: 5432
         run: |
           python3 manage.py test # Don't forget to run tests
